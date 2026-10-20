@@ -41,7 +41,7 @@ function launch(){if(!raf){frame.prev=0;raf=requestAnimationFrame(frame)}}
 function fire(x,y,n,p){burst(x,y,n,p);launch()}
 async function showMagic(){resize();stars=[];const r=coin.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;flash.classList.remove('flash');void flash.offsetWidth;flash.classList.add('flash');coin.classList.remove('return');coin.classList.add('vanish');fire(cx,cy,110,1.65);await wait(350);fire(innerWidth*.24,innerHeight*.27,45,1.2);fire(innerWidth*.77,innerHeight*.3,45,1.2);await wait(350);fire(innerWidth*.2,innerHeight*.63,42,1.1);fire(innerWidth*.79,innerHeight*.65,42,1.1);await wait(900);reveal.classList.add('show');await wait(1400);coin.classList.remove('vanish');coin.classList.add('return');fire(cx,cy,55,.8);await wait(650);reveal.classList.remove('show');coin.classList.remove('return')}
 async function celebrate(){if(busy)return;busy=true;await turn();await showMagic();done=true;try{localStorage.setItem(key,'yes')}catch(e){}view();busy=false}
-async function again(){if(busy)return;busy=true;await showMagic();busy=false}
+async function again(){if(busy)return;busy=true;await turn();await showMagic();busy=false}
 document.getElementById('celebrate').addEventListener('click',celebrate);document.getElementById('flip').addEventListener('click',flip);document.getElementById('again').addEventListener('click',again);coin.addEventListener('click',()=>{if(done)again();else celebrate()});coin.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(done)again();else celebrate()}});view();
 })();
 </script></body></html>
